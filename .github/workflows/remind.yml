@@ -8,4 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - run: curl -fsS --max-time 60 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" https://ts-calendar-five.vercel.app/api/remind
+      - name: Ping reminders
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          curl -fsS --max-time 60 -H "Authorization: Bearer $CRON_SECRET" https://ts-calendar-five.vercel.app/api/remind
